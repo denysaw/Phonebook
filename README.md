@@ -1,5 +1,5 @@
 # Phone book
-PhalconPHP test task for ([test task](TASK.md) for [Hostaway](https://www.hostaway.com/)).
+PhalconPHP [test task](TASK.md) for [Hostaway](https://www.hostaway.com/)).
 
 ## Requirements
 `git`, `docker`, `docker-compose`
