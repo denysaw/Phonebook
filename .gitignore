@@ -1,0 +1,11 @@
+.idea
+.phalcon
+laradock
+composer.lock
+vendor
+cache
+phalcon
+up
+log
+!log/.gitkeep
+.phpunit.result.cache

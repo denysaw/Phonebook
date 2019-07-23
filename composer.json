@@ -1,0 +1,14 @@
+{
+	"require": {
+		"ext-phalcon": "^3.4.3",
+		"guzzlehttp/guzzle": "^6.3"
+	},
+	"require-dev": {
+		"phalcon/devtools": "~3.4",
+		"zachleigh/yarak": "^1.2",
+		"phalcon/incubator": "^3.4",
+		"phpunit/phpunit": "^8.2"
+	},
+	"prefer-stable": true,
+	"minimum-stability": "dev"
+}

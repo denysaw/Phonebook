@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+git clone https://github.com/Laradock/laradock.git
+
+cd laradock
+cp env-example .env
+
+sed -i 's/PHP_VERSION=7.2/PHP_VERSION=7.3/g' .env
+sed -i 's/PHALCON_VERSION=3.4.1/PHALCON_VERSION=3.4.3/g' .env
+sed -i 's/WORKSPACE_INSTALL_PHALCON=false/WORKSPACE_INSTALL_PHALCON=true/g' .env
+sed -i 's/PHP_FPM_INSTALL_PHALCON=false/PHP_FPM_INSTALL_PHALCON=true/g' .env
+sed -i 's/COMPOSE_PROJECT_NAME=laradock/COMPOSE_PROJECT_NAME=phonebook/g' .env
+echo "default_authentication_plugin=mysql_native_password" >> mysql/my.cnf
+
+docker-compose up -d nginx mysql redis workspace
+docker-compose run workspace bash -c "
+	su laradock -c \"
+		composer update ;
+	    ln -s vendor/phalcon/devtools/phalcon phalcon ;
+	    ./artisan migrate:refresh -s
+	\"
+"
+
+cd ..
+
+echo -e "#!/usr/bin/env bash
+
+cd laradock
+
+docker-compose up -d nginx mysql redis workspace
+docker-compose exec workspace bash -c \"su laradock\"
+" > up
+
+chmod +x up
+chmod +x vendor/phalcon/devtools/phalcon
+chmod +x vendor/zachleigh/yarak/yarak
+bash up
